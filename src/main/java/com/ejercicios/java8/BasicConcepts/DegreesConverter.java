@@ -31,7 +31,7 @@ public class DegreesConverter {
                 convertedAmount = (amount * 9 / 5) + 32;
                 System.out.println("The fahrenheit is " + convertedAmount);
             }else if(unit == 'F') {
-                amount = (convertedAmount - 32) * 5 / 9;
+                convertedAmount = (amount - 32) * 5 / 9;
                 System.out.println("The celsius is " + convertedAmount);
             }
       
