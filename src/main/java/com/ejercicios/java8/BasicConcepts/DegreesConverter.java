@@ -4,6 +4,8 @@ package com.ejercicios.java8.BasicConcepts;
 import java.util.Scanner;
 import java.util.List;
 import java.util.Arrays;
+import java.util.InputMismatchException;
+
 public class DegreesConverter {
     public static void main(String[] args) {
         List<Character> validUnits = Arrays.asList('C', 'F');
@@ -12,15 +14,27 @@ public class DegreesConverter {
         double convertedAmount = 0;
         
         if (args.length != 2 ) {
-            System.out.println("Usage: java DegreesConverter amount (C or F)");
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter degrees (number): ");
-            amount = scanner.nextDouble();
-            System.out.println("Enter unit (C or F): ");
-            unit = scanner.next().toUpperCase().charAt(0);
+            try {
+                System.out.println("Usage: java DegreesConverter amount (C or F)");
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Enter degrees (number): ");
+                amount = scanner.nextDouble();
+                System.out.println("Enter unit (C or F): ");
+                unit = scanner.next().toUpperCase().charAt(0);
+            } catch (InputMismatchException  e) {
+                System.out.println("Error: Invalid input");
+                return;
+            }
+            
         }else {
-            amount = Double.parseDouble(args[0]);
-            unit = args[1].toUpperCase().charAt(0);
+            try {
+                amount = Double.parseDouble(args[0]);
+                unit = args[1].toUpperCase().charAt(0);
+            } catch (NumberFormatException   e) {
+                System.out.println("Error: Invalid input");
+                return;
+            }
+            
             
         }
         if (!validUnits.contains(unit)) {
