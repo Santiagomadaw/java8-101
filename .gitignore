@@ -1,0 +1,36 @@
+# Archivos compilados de Java
+*.class
+
+# Directorio de salida de compilación de Maven
+/target/
+
+# Archivos temporales de IDEs populares
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# Archivos de configuración de Eclipse
+.project
+.classpath
+.settings/
+
+# Archivos de configuración de NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Archivos de configuración de Visual Studio Code
+.vscode/
+
+# Logs
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Dependencias descargadas (si usas alguna carpeta para librerías externas)
+lib/
