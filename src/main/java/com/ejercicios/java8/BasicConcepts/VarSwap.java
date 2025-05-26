@@ -11,13 +11,24 @@ public class VarSwap {
         if(args.length != 2) {
             System.out.println("Usage: java VarSwap a b");
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter a: ");
-            a = scanner.nextInt();
-            System.out.println("Enter b: ");
-            b = scanner.nextInt();
+            try {
+                System.out.print("Enter a: ");
+                a = Integer.parseInt(scanner.nextLine());
+
+                System.out.print("Enter b: ");
+                b = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Oops! Only integer values are allowed. 😅");
+                return;
+            }
         }else {
-            a = Integer.parseInt(args[0]);
-            b = Integer.parseInt(args[1]); 
+              try {
+                a = Integer.parseInt(args[0]);
+                b = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please provide two integers, e.g. 5 8 🤓");
+                return;
+            } 
         }
         aux = a;
         a = b;
