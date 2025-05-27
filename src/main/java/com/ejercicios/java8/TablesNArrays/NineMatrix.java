@@ -3,6 +3,18 @@
 package com.ejercicios.java8.TablesNArrays;
 
 public class NineMatrix {
+    // Sumar dos matrices de 3x3.
+
+    public static void sumMatrix(int[][] matrixA, int[][] matrixB) {
+        int[][] result = new int[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                result[i][j] = matrixA[i][j] + matrixB[i][j];
+                System.out.print(result[i][j] + "\t");
+            }
+            System.out.println();
+        }
+    }
 
     public static void main(String[] args) {
         int[][] matrix = new int[3][3];// en un array de arrays tambien se se debe declarar el tamaño.
@@ -24,5 +36,7 @@ public class NineMatrix {
             }
             System.out.println();
         }
+        System.out.println();
+        sumMatrix(matrix, matrix2);
     }
 }
