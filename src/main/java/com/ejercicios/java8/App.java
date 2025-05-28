@@ -1,13 +1,10 @@
 package com.ejercicios.java8;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+import com.ejercicios.java8.Classes.Person;
+
+public class App {
+    public static void main(String[] args) {
+        Person p = new Person("Paco", 3);
+        p.saludar();
     }
 }
