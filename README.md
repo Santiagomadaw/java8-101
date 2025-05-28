@@ -58,7 +58,15 @@ Cambia el valor de `-Dexec.mainClass` y los argumentos según el ejercicio que q
   mvn exec:java -Dexec.mainClass="com.ejercicios.java8.BasicConcepts.TriangleArea" -Dexec.args="10 5"
   ```
 
-  Calcula el área de un triángulo dados su base y altura.
+  Calcula el área de un triángulo dados su base y altura
+
+- **Intercambio de variables:**
+
+  ```sh
+  mvn exec:java -Dexec.mainClass="com.ejercicios.java8.BasicConcepts.VarSwap"
+  ```
+
+  Intercambia 2 variables
 
 ### Bucles
 
@@ -78,9 +86,27 @@ Cambia el valor de `-Dexec.mainClass` y los argumentos según el ejercicio que q
 
   Muestra los primeros N números de la serie de Fibonacci.
 
-### Classes
+- **Triangulo de Pascal:**
 
-- **Person y MyMoney:**
+  ```sh
+  mvn exec:java -Dexec.mainClass="com.ejercicios.java8.Bucles.PascalTriangle"
+  ```
+
+  Dibuja un triangulo de Pascal.
+
+- **Menú falso:**
+
+  ```sh
+  mvn exec:java -Dexec.mainClass="com.ejercicios.java8.Bucles.FakeMenu"
+  ```
+
+  Simula un menu.
+
+### Classes y herencias
+
+- **Classes: Person y MyMoney**
+
+- **Herencias: Shape y Animal**
 
   ```sh
   mvn exec:java -Dexec.mainClass="com.ejercicios.java8.App"
@@ -89,16 +115,32 @@ Cambia el valor de `-Dexec.mainClass` y los argumentos según el ejercicio que q
   Demuestra el uso de clases, objetos y métodos.  
   Ejemplo de salida:
 
-  ```
-  Hola, soy Paco y tengo 3 años
-  Saldo en cuenta: 10000
-  15000
-  Saldo en cuenta: 15000
-  14700
-  Saldo en cuenta: 14700
-  Guau!
-  Miau!
-  ...
+  ```sh
+
+    Clase Person:
+
+    Hola, soy Paco y no debo hablar con extraños
+
+    Clase MyMoney:
+
+    Saldo en cuenta: 10000
+    Añadido a cuenta: 5000
+    Saldo en cuenta: 15000
+    Sacado de cuenta: 300
+    Saldo en cuenta: 14700
+
+    Clase Animal y subclases:
+
+    El perro ladra
+    El gato maulla
+    la araña no hace nada por que es capulla
+
+    Clase Shape y subclases:
+
+    El área es: 78.53981633974483
+    El área es: 16.0
+    ...
+
   ```
 
 ### Conditionals
@@ -135,25 +177,41 @@ Cambia el valor de `-Dexec.mainClass` y los argumentos según el ejercicio que q
   mvn exec:java -Dexec.mainClass="com.ejercicios.java8.Functions.PalindromeDetector" -Dexec.args="oso"
   ```
 
-  Verifica si una palabra es palíndroma.
+  Verifica si una frase es palíndroma.
+
+- **Calculadora:**
+
+  ```sh
+  mvn exec:java -Dexec.mainClass="com.ejercicios.java8.Functions.Calculator"
+  ```
+
+  Calculadora recive 2 enteros y un operador.
 
 ### Strings
 
-- **Contar caracteres:**
+- **Varios ejercicios con strings:**
 
   ```sh
-  mvn exec:java -Dexec.mainClass="com.ejercicios.java8.Strings.CountCharacters" -Dexec.args="hola"
+
+  mvn exec:java -Dexec.mainClass="com.ejercicios.java8.Strings.StringPractice"
+
   ```
-
-  Cuenta el número de caracteres en una cadena.
-
-- **Validar email:**
 
   ```sh
-  mvn exec:java -Dexec.mainClass="com.ejercicios.java8.Strings.EmailValidator" -Dexec.args="correo@ejemplo.com"
-  ```
 
-  Valida si una cadena tiene formato de email.
+    la letra o aparece 2 veces en la cadena hola mundo
+
+    hola mundo invertido es: odnum aloh
+
+    El perro de San Roque no tiene rabo. invertdo es: .obar eneit on euqoR naS ed orrep lE
+
+    la cadena El perro de San Roque no tiene rabo. tiene 8 palabras
+
+    El mail k4Q6S@example.com es valido? Si
+
+    El mail hola.com es valido? No
+
+  ```
 
 ### TablesNArrays
 
@@ -165,13 +223,21 @@ Cambia el valor de `-Dexec.mainClass` y los argumentos según el ejercicio que q
 
   Suma los elementos de un array.
 
-- **Matriz mágica:**
+- **Matriz 3x3:**
 
   ```sh
-  mvn exec:java -Dexec.mainClass="com.ejercicios.java8.TablesNArrays.MagicMatrix"
+  mvn exec:java -Dexec.mainClass="com.ejercicios.java8.TablesNArrays.NineMatrix"
   ```
 
-  Verifica si una matriz es mágica.
+ Dibuja una matriz de 3x3 con enteros del 1 al 9.
+
+ - **Cubo 3x3x3:**
+
+  ```sh
+  mvn exec:java -Dexec.mainClass="com.ejercicios.java8.TablesNArrays.MagiCube"
+  ```
+
+ Dibuja un cubo de 3x3x3 con enteros del 1 al 9.
 
 ---
 

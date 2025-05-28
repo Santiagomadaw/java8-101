@@ -13,9 +13,10 @@ import com.ejercicios.java8.Inheritance.ShapeClass.Square;
 
 public class App {
     public static void main(String[] args) {
+        System.out.println("\n Clase Person:\n");
         Person p = new Person("Paco", 3);
         p.saludar();
-
+        System.out.println("\n Clase MyMoney:\n");
         MyMoney money = new MyMoney();
         money.setAmount(10000);
         System.out.println("Saldo en cuenta: " + money.getAmount());
@@ -23,7 +24,7 @@ public class App {
         System.out.println("Saldo en cuenta: " + money.getAmount());
         System.out.println(money.subtract(300));
         System.out.println("Saldo en cuenta: " + money.getAmount());
-
+        System.out.println("\n Clase Animal y subclases:\n");
         Animal[] bichitos = {
                 new Dog(),
                 new Cat(),
@@ -33,6 +34,7 @@ public class App {
         for (Animal bicho : bichitos) {
             bicho.hacerSonido();
         }
+        System.out.println("\n Clase Shape y subclases:\n");
         Shape circle = new Circle(5);
         Shape square = new Square(4);
         circle.displayArea();
