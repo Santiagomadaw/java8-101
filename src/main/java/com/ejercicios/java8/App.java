@@ -10,6 +10,9 @@ import com.ejercicios.java8.Inheritance.AnimalClass.Spider;
 import com.ejercicios.java8.Inheritance.ShapeClass.Shape;
 import com.ejercicios.java8.Inheritance.ShapeClass.Circle;
 import com.ejercicios.java8.Inheritance.ShapeClass.Square;
+import com.ejercicios.java8.interfaces.FlyingEntity.Bird;
+import com.ejercicios.java8.interfaces.FlyingEntity.Flying;
+import com.ejercicios.java8.interfaces.FlyingEntity.Airplane;
 
 public class App {
     public static void main(String[] args) {
@@ -39,5 +42,14 @@ public class App {
         Shape square = new Square(4);
         circle.displayArea();
         square.displayArea();
+
+        System.out.println("\n Interfaces:\n");
+
+        // com.ejercicios.java8.interfaces.FlyingEntity.Bird("Pigeon");
+        Flying pigeon = new Bird("Pigeon");
+        pigeon.fly();
+        Flying boing747 = new Airplane("Boeing 747");
+        boing747.fly();
+
     }
 }
