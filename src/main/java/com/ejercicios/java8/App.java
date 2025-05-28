@@ -1,6 +1,10 @@
 package com.ejercicios.java8;
 
 import com.ejercicios.java8.Classes.Person;
+import com.ejercicios.java8.Inheritance.AnimalClass.Animal;
+import com.ejercicios.java8.Inheritance.AnimalClass.Cat;
+import com.ejercicios.java8.Inheritance.AnimalClass.Dog;
+import com.ejercicios.java8.Inheritance.AnimalClass.Spider;
 import com.ejercicios.java8.Classes.MyMoney;
 
 public class App {
@@ -15,5 +19,15 @@ public class App {
         System.out.println("Saldo en cuenta: " + money.getAmount());
         System.out.println(money.subtract(300));
         System.out.println("Saldo en cuenta: " + money.getAmount());
+
+        Animal[] bichitos = {
+                new Dog(),
+                new Cat(),
+                new Spider()
+        };
+
+        for (Animal bicho : bichitos) {
+            bicho.hacerSonido();
+        }
     }
 }
