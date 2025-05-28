@@ -1,11 +1,15 @@
 package com.ejercicios.java8;
 
 import com.ejercicios.java8.Classes.Person;
+
+import com.ejercicios.java8.Classes.MyMoney;
 import com.ejercicios.java8.Inheritance.AnimalClass.Animal;
 import com.ejercicios.java8.Inheritance.AnimalClass.Cat;
 import com.ejercicios.java8.Inheritance.AnimalClass.Dog;
 import com.ejercicios.java8.Inheritance.AnimalClass.Spider;
-import com.ejercicios.java8.Classes.MyMoney;
+import com.ejercicios.java8.Inheritance.ShapeClass.Shape;
+import com.ejercicios.java8.Inheritance.ShapeClass.Circle;
+import com.ejercicios.java8.Inheritance.ShapeClass.Square;
 
 public class App {
     public static void main(String[] args) {
@@ -29,5 +33,9 @@ public class App {
         for (Animal bicho : bichitos) {
             bicho.hacerSonido();
         }
+        Shape circle = new Circle(5);
+        Shape square = new Square(4);
+        circle.displayArea();
+        square.displayArea();
     }
 }
