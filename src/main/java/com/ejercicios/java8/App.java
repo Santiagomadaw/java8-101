@@ -27,6 +27,11 @@ public class App {
         System.out.println("Saldo en cuenta: " + money.getAmount());
         System.out.println(money.subtract(300));
         System.out.println("Saldo en cuenta: " + money.getAmount());
+        MyMoney money2 = new MyMoney(1000, "Cartera de piel");
+        money2.showMeTheMoney();
+        money.showMeTheMoney();
+
+
         System.out.println("\n Clase Animal y subclases:\n");
         Animal[] bichitos = {
                 new Dog(),

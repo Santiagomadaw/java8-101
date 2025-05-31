@@ -2,12 +2,19 @@
 package com.ejercicios.java8.Classes;
 
 public class MyMoney {
-    private int amount;
+    private int amount=0;
+    private String wallet;
 
     public MyMoney() {
-        this.amount = 0;
+        this(0, "Mi bolsillo");
     }
-
+    public MyMoney(int amount) {
+        this(amount, "Mi bolsillo");
+    }
+    public MyMoney(int amount, String wallet) {
+        this.amount = amount;
+        this.wallet = wallet; 
+    }
     public int getAmount() {
         return amount;
     }
@@ -28,5 +35,12 @@ public class MyMoney {
         this.amount -= amount;
         return "Sacado de cuenta: " + amount;
 
+    }
+    public String getWallet(){return wallet;}
+    public void setWallet(String wallet){
+        this.wallet = wallet;
+    }
+    public void showMeTheMoney(){
+    System.out.println("Tengo "+ amount + "€ en "+wallet);
     }
 }
