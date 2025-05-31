@@ -13,11 +13,11 @@ import java.util.Scanner;
  */
 
 enum Option {
-    EXIT(0,"Salir"),
-    FILE(1, "Archivo"),
-    EDIT(2,"Editar"),
-    SELECTION(3,"Seleccion"),
-    VIEW(4,"Vista"),
+    EXIT(0,"Exit"),
+    FILE(1, "Flie"),
+    EDIT(2,"Edit"),
+    SELECTION(3,"Selection"),
+    VIEW(4,"View"),
     TERMINAL(5,"Terminal");
     private final int numOption;
     private final String description;
@@ -43,15 +43,15 @@ enum Option {
     }
     public static String executeOption(int o) {
         Option option = OPTION_MAP.get(o);
-        if (option==null){return "Opcion no valida";}
+        if (option==null){return "Invalid selection";}
         switch (option) {
-            case EXIT: return "Saliendo del programa...";
-            case FILE: return "Abriendo menú de archivo...";
-            case EDIT: return "Entrando al modo edición...";
-            case SELECTION: return "Modo selección activado.";
-            case VIEW: return "Mostrando opciones de vista.";
-            case TERMINAL: return "Ejecutando terminal integrada.";
-            default: return "Opción no reconocida.";
+            case EXIT: return "Closing...";
+            case FILE: return "Opening file menu...";
+            case EDIT: return "Opening editor...";
+            case SELECTION: return "Opening selector...";
+            case VIEW: return "Opening view options...";
+            case TERMINAL: return "Opening terminal...";
+            default: return "Invalid case";
         }
     }
 }
@@ -84,6 +84,5 @@ public class FakeMenu {
 
         } while (option != 0);
         scanner.close(); // cierra el scanner para liberar recursos
-        return;
     }
 }
