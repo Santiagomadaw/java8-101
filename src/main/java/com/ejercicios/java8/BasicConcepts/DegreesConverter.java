@@ -21,6 +21,7 @@ public class DegreesConverter {
                 amount = scanner.nextDouble();
                 System.out.println("Enter unit (C or F): ");
                 unit = scanner.next().toUpperCase().charAt(0);
+                scanner.close();
             } catch (InputMismatchException  e) {
                 System.out.println("Error: Invalid input");
                 return;
