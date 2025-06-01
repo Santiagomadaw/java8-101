@@ -13,8 +13,12 @@ public class TriangleArea {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter the base: ");
             base = scanner.nextDouble();
+                            scanner.close();
+
             System.out.println("Enter the height: ");
             height = scanner.nextDouble(); 
+            scanner.close();
+
             } catch (InputMismatchException  e) {
                 System.out.println("Invalid input, only numbers are allowed");
                 return;

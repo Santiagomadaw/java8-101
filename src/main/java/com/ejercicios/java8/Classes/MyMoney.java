@@ -4,7 +4,9 @@ package com.ejercicios.java8.Classes;
 public class MyMoney {
     private int amount=0;
     private String wallet;
-
+// La sobrecarga de constructores permite crear múltiples versiones del constructor de una clase, 
+// diferenciadas por la cantidad y el tipo de parámetros que reciben. Esto facilita la creación de objetos 
+// con diferentes configuraciones iniciales, proporcionando flexibilidad al usuario de la clase.
     public MyMoney() {
         this(0, "Mi bolsillo");
     }

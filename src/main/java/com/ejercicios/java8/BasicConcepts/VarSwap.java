@@ -17,6 +17,7 @@ public class VarSwap {
 
                 System.out.print("Enter b: ");
                 b = Integer.parseInt(scanner.nextLine());
+                scanner.close();
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input! Please provide two integers, e.g. 5 8");
                 return;

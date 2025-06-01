@@ -1,18 +1,9 @@
 package com.ejercicios.java8;
 
-import com.ejercicios.java8.Classes.Person;
-
-import com.ejercicios.java8.Classes.MyMoney;
-import com.ejercicios.java8.Inheritance.AnimalClass.Animal;
-import com.ejercicios.java8.Inheritance.AnimalClass.Cat;
-import com.ejercicios.java8.Inheritance.AnimalClass.Dog;
-import com.ejercicios.java8.Inheritance.AnimalClass.Spider;
-import com.ejercicios.java8.Inheritance.ShapeClass.Shape;
-import com.ejercicios.java8.Inheritance.ShapeClass.Circle;
-import com.ejercicios.java8.Inheritance.ShapeClass.Square;
-import com.ejercicios.java8.interfaces.FlyingEntity.Bird;
-import com.ejercicios.java8.interfaces.FlyingEntity.Flying;
-import com.ejercicios.java8.interfaces.FlyingEntity.Airplane;
+import com.ejercicios.java8.Classes.*;
+import com.ejercicios.java8.Inheritance.AnimalClass.*;
+import com.ejercicios.java8.Inheritance.ShapeClass.*;
+import com.ejercicios.java8.interfaces.FlyingEntity.*;
 
 public class App {
     public static void main(String[] args) {

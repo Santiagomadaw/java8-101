@@ -34,6 +34,7 @@ public class FakeLogin {
                 username = scanner.next();
                 System.out.println("Enter password: ");
                 password = scanner.next();
+                scanner.close();
             } catch (InputMismatchException  e) {
                 System.out.println("Invalid input, only strings are allowed");
                 return;

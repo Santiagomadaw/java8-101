@@ -12,6 +12,7 @@ public class EvenOdd {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Enter the number: ");
                 number = scanner.nextInt();
+                scanner.close();
             } catch (InputMismatchException  e) {
                 System.out.println("Invalid input, only numbers are allowed");
                 return;
