@@ -95,7 +95,9 @@ public class QueueExercices {
                 case 4:
                     if (!cinemaQueue.isEmpty()) {
                         System.out.println("Clientes en la cola:");
-                        cinemaQueue.forEach(System.out::println);
+                        int[] index = { 1 };// como no puedo usar variable primitiva en lambda, uso un array para poder
+                                            // modificar el valor
+                        cinemaQueue.stream().forEach(client -> System.out.println(index[0]++ + ". " + client));
                     } else {
                         System.out.println("No hay clientes en la cola.");
                     }
