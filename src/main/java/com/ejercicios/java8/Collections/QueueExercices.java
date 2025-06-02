@@ -95,7 +95,8 @@ public class QueueExercices {
             try {
                 selectedOption = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                System.out.println("Entrada no válida. Por favor, ingrese un número.\\n" + //
+                        "");
                 continue; // Volver al inicio del bucle para pedir una opción válida
             }
 
@@ -104,32 +105,32 @@ public class QueueExercices {
                     System.out.print("Ingrese el nombre del cliente: ");
                     String clientName = sc.nextLine();
                     cinemaQueue.add(clientName);
-                    System.out.println("Cliente " + clientName + " añadido a la cola.");
+                    System.out.println("Cliente " + clientName + " añadido a la cola.\n");
                     break;
                 case 2:
                     if (!cinemaQueue.isEmpty()) {
                         firstClient = cinemaQueue.poll();
-                        System.out.println("Atendiendo al cliente: " + firstClient);
+                        System.out.println("Atendiendo al cliente: " + firstClient + "\n");
                         try {
                             Thread.sleep(2000); // Simula un tiempo de espera de 2 segundos
                         } catch (InterruptedException e) {
                             System.out.println("Error al simular el tiempo de espera: " + e.getMessage());
                         }
-                        // menu de copra de producto
-                        System.out.println("Seleccione un producto para " + firstClient + ":");
+                        // menu de compra de producto
+                        System.out.println("Seleccione un producto para " + firstClient + ":\n");
                         int selectedProduct = -1;
                         Map<Products, Integer> purchases = new HashMap<>();
                         while (selectedProduct != 0) {
-                            System.out.println("Productos disponibles:");
+                            System.out.println("Productos disponibles:\n");
                             for (Products product : Products.values()) {
                                 System.out.println(
                                         product.getId() + ". " + product.getName() + " - $" + product.getPrice());
                             }
-                            System.out.print("Seleccione un producto (o 0 para salir): ");
+                            System.out.print("Seleccione un producto (o 0 para salir): \n");
                             try {
                                 selectedProduct = Integer.parseInt(sc.nextLine());
                             } catch (NumberFormatException e) {
-                                System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                                System.out.println("Entrada no válida. Por favor, ingrese un número.\n");
                                 continue; // Volver al inicio del bucle para pedir una opción válida
                             }
 
@@ -163,7 +164,7 @@ public class QueueExercices {
                                 + "$");
 
                     } else {
-                        System.out.println("No hay clientes en la cola.");
+                        System.out.println("No hay clientes en la cola.\n");
                     }
                     break;
                 case 3:
