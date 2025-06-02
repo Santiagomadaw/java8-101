@@ -1,8 +1,40 @@
 package com.ejercicios.java8.Collections;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
+
+enum Products {
+    POPCORN(1, "Palomitas", 5.0),
+    SODA(2, "Refresco", 3.0),
+    CANDY(3, "Caramelos", 2.0),
+    ICE_CREAM(4, "Helado", 4.0),
+    EXIT(5, "Salir", 0.0);
+
+    private final String name;
+    private final double price;
+    private int id;
+
+    Products(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+}
 
 enum MenuOptions {
     ADD_CLIENT(1, "Añadir cliente a la cola"),
@@ -37,8 +69,12 @@ public class QueueExercices {
          * Vamos a implemetar una cola del cine para ver Star Wars,
          * vamos a usar una cola para gestionar los clientes que llegan al cine
          */
+
         String firstClient;
         Queue<String> cinemaQueue = new LinkedList<>();
+        // creamos un mapa donde almacenamos los clientes y productos que comprarn
+        Map<String, Map<Products, Integer>> clientsPurchases = new HashMap<>();
+
         // Añadimos clientes a la cola
         cinemaQueue.add("Andres Cifuentes");
         cinemaQueue.add("María López");
@@ -79,6 +115,52 @@ public class QueueExercices {
                         } catch (InterruptedException e) {
                             System.out.println("Error al simular el tiempo de espera: " + e.getMessage());
                         }
+                        // menu de copra de producto
+                        System.out.println("Seleccione un producto para " + firstClient + ":");
+                        int selectedProduct = -1;
+                        Map<Products, Integer> purchases = new HashMap<>();
+                        while (selectedProduct != 0) {
+                            System.out.println("Productos disponibles:");
+                            for (Products product : Products.values()) {
+                                System.out.println(
+                                        product.getId() + ". " + product.getName() + " - $" + product.getPrice());
+                            }
+                            System.out.print("Seleccione un producto (o 0 para salir): ");
+                            try {
+                                selectedProduct = Integer.parseInt(sc.nextLine());
+                            } catch (NumberFormatException e) {
+                                System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                                continue; // Volver al inicio del bucle para pedir una opción válida
+                            }
+
+                            if (selectedProduct > 0 && selectedProduct < Products.values().length) {
+                                // añado el producto seleccionado a purchases en caso de ya haberlo comprado
+                                // sumo el precio al ya añadido
+                                Products product = Products.values()[selectedProduct - 1];
+                                purchases.put(product, purchases.getOrDefault(product, 0) + 1);
+                                System.out.println(
+                                        "Producto " + product.getName() + " añadido a la compra de " + firstClient
+                                                + ". Precio: $" + product.getPrice());
+
+                            } else if (selectedProduct != 0) {
+                                System.out.println("Producto no válido. Intente de nuevo.");
+                            }
+                        }
+                        // Guardamos las compras del cliente en el mapa
+                        clientsPurchases.put(firstClient, purchases);
+                        System.out.println("Compras de " + firstClient + ":");
+                        purchases.forEach((product, quantity) -> {
+                            System.out.println("- " + product.getName() + " x" + quantity + " - Precio: $"
+                                    + (product.getPrice() * quantity));
+                        });
+                        // uso streams para mostrar el total de la compra.
+                        // nota: Un map no tiene stream de modo que hay que convertirlo en Set para
+                        // poder iterarlo
+                        System.out.println("Total :"
+                                + purchases.entrySet().stream().reduce(0.0,
+                                        (total, entry) -> total + entry.getKey().getPrice() * entry.getValue(),
+                                        Double::sum)
+                                + "$");
 
                     } else {
                         System.out.println("No hay clientes en la cola.");
