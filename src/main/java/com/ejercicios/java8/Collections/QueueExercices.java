@@ -1,11 +1,7 @@
 package com.ejercicios.java8.Collections;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class QueueExercices {
@@ -16,21 +12,112 @@ public class QueueExercices {
          * vamos a usar una cola para gestionar los clientes que llegan al cine
          */
 
-        Client firstClient;
-        Queue<Client> cinemaQueue = new LinkedList<>();
+        CinemaQueueManager cinemaQueue = new CinemaQueueManager();
         // creamos un mapa donde almacenamos los clientes y productos que comprarn
-        List<Client> clientsPurchases = new ArrayList<>();
+        List<Client> servedClients = new ArrayList<>();
 
         // Añadimos clientes a la cola
-        cinemaQueue.add(new Client("Andres Cifuentes"));
-        cinemaQueue.add(new Client("María López"));
-        cinemaQueue.add(new Client("Juan Pérez"));
-        cinemaQueue.add(new Client("Ana García"));
-        cinemaQueue.add(new Client("Pedro Jiménez"));
-        cinemaQueue.add(new Client("Laura Fernández"));
+        cinemaQueue.addClient(new Client("Andres Cifuentes"));
+        cinemaQueue.addClient(new Client("María López"));
+        cinemaQueue.addClient(new Client("Juan Pérez"));
+        cinemaQueue.addClient(new Client("Ana García"));
+        cinemaQueue.addClient(new Client("Pedro Jiménez"));
+        cinemaQueue.addClient(new Client("Laura Fernández"));
 
         Scanner sc = new Scanner(System.in);
+        menuHandler(sc, cinemaQueue, servedClients);
+    }
 
+    public static void nextClientPurchaseHandler(CinemaQueueManager cinemaQueue, Scanner sc,
+            List<Client> clientsPurchases) {
+        if (!cinemaQueue.isEmpty()) {
+            Client firstClient = cinemaQueue.serveNextClient();
+            clientsPurchases.add(firstClient);
+            System.out.println("Atendiendo al cliente: " + firstClient.getName() + "\n");
+            // menu de compra de producto
+            System.out.println("Seleccione un producto para " + firstClient.getName() + ":\n");
+            purchaseHandler(firstClient, sc);
+            System.out.println("Compras de " + firstClient.getName() + ":");
+
+            firstClient.getPurchases().forEach((product, quantity) -> {
+                System.out.println("- " + product.getName() + " x" + quantity + " - Precio: $"
+                        + (product.getPrice() * quantity));
+            });
+            // uso streams para mostrar el total de la compra.
+            // nota: Un map no tiene stream de modo que hay que convertirlo en Set para
+            // poder iterarlo
+            System.out.println("Total :"
+                    + firstClient.getPurchases().entrySet().stream().reduce(0.0,
+                            (total, entry) -> total + entry.getKey().getPrice() * entry.getValue(),
+                            Double::sum)
+                    + "$");
+
+        } else {
+            System.out.println("No hay clientes en la cola.\n");
+        }
+    }
+
+    public static void showClientSumary(String clientName, List<Client> servedClients) {
+        // busco el cliente por nombre
+        Client client = servedClients.stream()
+                .filter(c -> c.getName().equalsIgnoreCase(clientName)).findFirst()
+                .orElse(null);
+
+        System.out.println("Compras de " + client.getName() + ":");
+        client.getPurchases().forEach((product, quantity) -> {
+            System.out.println("- " + product.getName() + " x" + quantity + " - Precio: $"
+                    + (product.getPrice() * quantity));
+        });
+        // uso streams para mostrar el total de la compra.
+        // nota: Un map no tiene stream de modo que hay que convertirlo en Set para
+        // poder iterarlo
+        System.out.println("Total :"
+                + client.getPurchases().entrySet().stream().reduce(0.0,
+                        (total, entry) -> total + entry.getKey().getPrice() * entry.getValue(),
+                        Double::sum)
+                + "$\n");
+    }
+
+    public static void newClientHandler(CinemaQueueManager cinemaQueue, Scanner sc) {
+        System.out.print("Ingrese el nombre del cliente: ");
+        Client clientName = new Client(sc.nextLine());
+        cinemaQueue.addClient(clientName);
+        System.out.println("Cliente " + clientName.getName() + " añadido a la cola.\n");
+    }
+
+    public static void purchaseHandler(Client client, Scanner sc) {
+        int selectedProduct = -1;
+        while (selectedProduct != 0) {
+            System.out.println("Productos disponibles:\n");
+            for (Products product : Products.values()) {
+                System.out.println(
+                        product.getId() + ". " + product.getName() + " - $" + product.getPrice());
+            }
+            System.out.print("Seleccione un producto (o 0 para salir): \n");
+            try {
+                selectedProduct = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada no válida. Por favor, ingrese un número.\n");
+                continue; // Volver al inicio del bucle para pedir una opción válida
+            }
+
+            if (selectedProduct > 0 && selectedProduct <= Products.values().length) {
+                // añado el producto seleccionado a purchases en caso de ya haberlo comprado
+                // sumo el precio al ya añadido
+                Products product = Products.values()[selectedProduct - 1];
+                client.addPurchase(product);
+                System.out.println(
+                        "Producto " + product.getName() + " añadido a la compra de " + client.getName()
+                                + ". Precio: $" + product.getPrice());
+
+            } else if (selectedProduct != 0) {
+                System.out.println("Producto no válido. Intente de nuevo.");
+            }
+        }
+    }
+
+    public static void menuHandler(Scanner sc, CinemaQueueManager cinemaQueue,
+            List<Client> clientsPurchases) {
         int selectedOption = -1;
         while (selectedOption != 0) {
             System.out.println("Seleccione una opción:");
@@ -46,70 +133,17 @@ public class QueueExercices {
                 continue; // Volver al inicio del bucle para pedir una opción válida
             }
 
+            Client firstClient;
             switch (selectedOption) {
                 case 1:
-                    System.out.print("Ingrese el nombre del cliente: ");
-                    Client clientName = new Client(sc.nextLine());
-                    cinemaQueue.add(clientName);
-                    System.out.println("Cliente " + clientName.getName() + " añadido a la cola.\n");
+                    newClientHandler(cinemaQueue, sc);
                     break;
                 case 2:
-                    if (!cinemaQueue.isEmpty()) {
-                        firstClient = cinemaQueue.poll();
-                        clientsPurchases.add(firstClient);
-                        System.out.println("Atendiendo al cliente: " + firstClient.getName() + "\n");
-                        // menu de compra de producto
-                        System.out.println("Seleccione un producto para " + firstClient.getName() + ":\n");
-                        int selectedProduct = -1;
-                        while (selectedProduct != 0) {
-                            System.out.println("Productos disponibles:\n");
-                            for (Products product : Products.values()) {
-                                System.out.println(
-                                        product.getId() + ". " + product.getName() + " - $" + product.getPrice());
-                            }
-                            System.out.print("Seleccione un producto (o 0 para salir): \n");
-                            try {
-                                selectedProduct = Integer.parseInt(sc.nextLine());
-                            } catch (NumberFormatException e) {
-                                System.out.println("Entrada no válida. Por favor, ingrese un número.\n");
-                                continue; // Volver al inicio del bucle para pedir una opción válida
-                            }
-
-                            if (selectedProduct > 0 && selectedProduct < Products.values().length) {
-                                // añado el producto seleccionado a purchases en caso de ya haberlo comprado
-                                // sumo el precio al ya añadido
-                                Products product = Products.values()[selectedProduct - 1];
-                                firstClient.addPurchase(product);
-                                System.out.println(
-                                        "Producto " + product.getName() + " añadido a la compra de " + firstClient
-                                                + ". Precio: $" + product.getPrice());
-
-                            } else if (selectedProduct != 0) {
-                                System.out.println("Producto no válido. Intente de nuevo.");
-                            }
-                        }
-                        System.out.println("Compras de " + firstClient.getName() + ":");
-
-                        firstClient.getPurchases().forEach((product, quantity) -> {
-                            System.out.println("- " + product.getName() + " x" + quantity + " - Precio: $"
-                                    + (product.getPrice() * quantity));
-                        });
-                        // uso streams para mostrar el total de la compra.
-                        // nota: Un map no tiene stream de modo que hay que convertirlo en Set para
-                        // poder iterarlo
-                        System.out.println("Total :"
-                                + firstClient.getPurchases().entrySet().stream().reduce(0.0,
-                                        (total, entry) -> total + entry.getKey().getPrice() * entry.getValue(),
-                                        Double::sum)
-                                + "$");
-
-                    } else {
-                        System.out.println("No hay clientes en la cola.\n");
-                    }
+                    nextClientPurchaseHandler(cinemaQueue, sc, clientsPurchases);
                     break;
                 case 3:
                     if (!cinemaQueue.isEmpty()) {
-                        firstClient = cinemaQueue.peek();
+                        firstClient = cinemaQueue.peekNextClient();
                         System.out.println("Primer cliente en la cola: " + firstClient.getName());
                     } else {
                         System.out.println("No hay clientes en la cola.");
@@ -118,18 +152,18 @@ public class QueueExercices {
                 case 4:
                     if (!cinemaQueue.isEmpty()) {
                         System.out.println("Clientes en la cola:");
-                        int[] index = { 1 };// como no puedo usar variable primitiva en lambda, uso un array para poder
-                                            // modificar el valor
-                        cinemaQueue.stream().forEach(client -> System.out.println(index[0]++ + ". " + client));
+                        cinemaQueue.getClientsInQueue().forEach(client -> {
+                            System.out.println("- " + client.getName());
+                        });
                     } else {
                         System.out.println("No hay clientes en la cola.");
                     }
                     break;
                 case 5:
-                    System.out.println("Número de clientes en la cola: " + cinemaQueue.size());
+                    System.out.println("Número de clientes en la cola: " + cinemaQueue.getQueueSize());
                     break;
                 case 6:
-                    cinemaQueue.clear();
+                    cinemaQueue.clearQueue();
                     System.out.println("Cola limpiada. No hay clientes en la cola.");
                     break;
                 case 0:

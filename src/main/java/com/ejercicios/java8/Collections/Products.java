@@ -4,8 +4,7 @@ enum Products {
     POPCORN(1, "Palomitas", 5.0),
     SODA(2, "Refresco", 3.0),
     CANDY(3, "Caramelos", 2.0),
-    ICE_CREAM(4, "Helado", 4.0),
-    EXIT(5, "Salir", 0.0);
+    ICE_CREAM(4, "Helado", 4.0);
 
     private final String name;
     private final double price;
