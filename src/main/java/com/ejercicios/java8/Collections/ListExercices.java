@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ListExcercices {
+public class ListExercices {
 
     public static void main(String[] args) {
         List<String> names = new ArrayList<>();
@@ -48,6 +48,7 @@ public class ListExcercices {
 
         List<String> uniqueNames2 = new ArrayList<>(new HashSet<>(names));
         System.out.println("Lista de nombres ordenada y sin duplicados 2:");
+        uniqueNames2.sort((a, b) -> a.compareToIgnoreCase(b));
         for (String name : uniqueNames2) {
             System.out.println(name);
         }
