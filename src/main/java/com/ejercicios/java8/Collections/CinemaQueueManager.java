@@ -40,4 +40,11 @@ public class CinemaQueueManager {
         return new ArrayList<>(queue);
     }
 
+    public Client getClientByPosition(int position) {
+        if (position < 0 || position >= queue.size()) {
+            throw new IndexOutOfBoundsException("Position out of bounds");
+        }
+        return queue.stream().skip(position).findFirst().orElse(null);
+    }
+
 }

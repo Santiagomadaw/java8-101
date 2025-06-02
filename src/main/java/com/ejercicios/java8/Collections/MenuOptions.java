@@ -7,7 +7,9 @@ enum MenuOptions {
     SHOW_CLIENTS(4, "Listar todos los clientes en la cola"),
     COUNT_CLIENTS(5, "Contar el número de clientes en la cola"),
     CLEAR_QUEUE(6, "Limpiar la cola"),
-    EXIT(0, "Salir");
+    SHOW_CLIENT_SUMMARY(7, "Mostrar resumen de compras de un cliente"),
+    EXIT(0, "Salir"),
+    ;
 
     private final int option;
     private final String description;

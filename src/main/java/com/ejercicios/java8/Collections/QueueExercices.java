@@ -29,31 +29,32 @@ public class QueueExercices {
     }
 
     public static void nextClientPurchaseHandler(CinemaQueueManager cinemaQueue, Scanner sc,
-            List<Client> clientsPurchases) {
+            List<Client> servedClients) {
         if (!cinemaQueue.isEmpty()) {
             Client firstClient = cinemaQueue.serveNextClient();
-            clientsPurchases.add(firstClient);
+            servedClients.add(firstClient);
             System.out.println("Atendiendo al cliente: " + firstClient.getName() + "\n");
             // menu de compra de producto
             System.out.println("Seleccione un producto para " + firstClient.getName() + ":\n");
             purchaseHandler(firstClient, sc);
             System.out.println("Compras de " + firstClient.getName() + ":");
 
-            firstClient.getPurchases().forEach((product, quantity) -> {
-                System.out.println("- " + product.getName() + " x" + quantity + " - Precio: $"
-                        + (product.getPrice() * quantity));
-            });
-            // uso streams para mostrar el total de la compra.
-            // nota: Un map no tiene stream de modo que hay que convertirlo en Set para
-            // poder iterarlo
-            System.out.println("Total :"
-                    + firstClient.getPurchases().entrySet().stream().reduce(0.0,
-                            (total, entry) -> total + entry.getKey().getPrice() * entry.getValue(),
-                            Double::sum)
-                    + "$");
+            showClientSumary(firstClient.getName(), servedClients);
 
         } else {
             System.out.println("No hay clientes en la cola.\n");
+        }
+    }
+    // listar clientes con posicion en la cola
+
+    public static void listNumberedServedClients(List<Client> servedClients) {
+        if (!servedClients.isEmpty()) {
+            System.out.println("Clientes atendidos:");
+            for (int i = 0; i < servedClients.size(); i++) {
+                System.out.println((i + 1) + "- " + servedClients.get(i).getName());
+            }
+        } else {
+            System.out.println("No hay clientes atendidos.");
         }
     }
 
@@ -117,7 +118,7 @@ public class QueueExercices {
     }
 
     public static void menuHandler(Scanner sc, CinemaQueueManager cinemaQueue,
-            List<Client> clientsPurchases) {
+            List<Client> servedClients) {
         int selectedOption = -1;
         while (selectedOption != 0) {
             System.out.println("Seleccione una opción:");
@@ -139,7 +140,7 @@ public class QueueExercices {
                     newClientHandler(cinemaQueue, sc);
                     break;
                 case 2:
-                    nextClientPurchaseHandler(cinemaQueue, sc, clientsPurchases);
+                    nextClientPurchaseHandler(cinemaQueue, sc, servedClients);
                     break;
                 case 3:
                     if (!cinemaQueue.isEmpty()) {
@@ -165,6 +166,21 @@ public class QueueExercices {
                 case 6:
                     cinemaQueue.clearQueue();
                     System.out.println("Cola limpiada. No hay clientes en la cola.");
+                    break;
+                case 7:
+                    listNumberedServedClients(servedClients);
+                    System.out.print("Ingrese el número del cliente para ver su resumen de compras: ");
+                    try {
+                        int clientNumber = Integer.parseInt(sc.nextLine());
+                        if (clientNumber < 1 || clientNumber > servedClients.size()) {
+                            System.out.println("Número inválido.");
+                        } else {
+                            Client lookedClient = servedClients.get(clientNumber - 1);
+                            showClientSumary(lookedClient.getName(), servedClients);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Entrada no válida. Ingrese un número.");
+                    }
                     break;
                 case 0:
                     System.out.println("Saliendo del programa...");
